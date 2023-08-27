@@ -1,5 +1,7 @@
 part of 'quiz_cubit.dart';
 
+enum Result { timeout, running, valid, invalid }
+
 @freezed
 class QuizState with _$QuizState {
   const factory QuizState.initial({required SettingsCubit settingsCubit}) =
@@ -13,6 +15,9 @@ class QuizState with _$QuizState {
     Country? country,
     List<Country>? variants,
     Timer? timer,
-    @Default(false) bool timeout,
+    @Default(Result.running) Result result,
+    List<Country>? guesses,
+    @Default(0) int questionNumber,
+    @Default(0) int correctAnswers,
   }) = _Running;
 }

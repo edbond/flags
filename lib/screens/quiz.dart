@@ -1,14 +1,12 @@
-import 'dart:developer';
-
+import 'package:flags/colors.dart';
 import 'package:flags/model/quiz_cubit.dart';
 import 'package:flags/model/settings_cubit.dart';
+import 'package:flags/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-final correctColor = MaterialStateProperty.all<Color>(Colors.green);
 
 class Quiz extends StatelessWidget {
   const Quiz({super.key});
@@ -25,7 +23,7 @@ class Quiz extends StatelessWidget {
             ..startTimer();
         },
         child: Scaffold(
-          backgroundColor: Colors.purpleAccent.shade100,
+          backgroundColor: sand,
           body: BlocBuilder<SettingsCubit, SettingsState>(
             builder: (context, settingsState) {
               return BlocBuilder<QuizCubit, QuizState>(
@@ -35,45 +33,40 @@ class Quiz extends StatelessWidget {
                   width: double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       state.maybeMap<Widget>(
                           orElse: () => SizedBox.shrink(),
                           running: (r) {
                             var seconds = r.timeLeft.inSeconds;
-                            var secondsLeft =
-                                seconds.toString().padLeft(2, "0");
+                            var secondsLeft = seconds.toString();
 
-                            if (r.timeout) {
-                              secondsLeft = "timeout";
+                            if (r.result == Result.timeout) {
+                              secondsLeft = "time out";
                             }
 
-                            return Container(
-                              color: Colors.yellow,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    BackButton(
-                                      onPressed: () {
-                                        context.replace("/");
-                                      },
-                                    ),
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          Text(secondsLeft,
-                                              style: GoogleFonts.notoSansMono(
-                                                  fontSize: 28)),
-                                          SizedBox(width: 4),
-                                          Icon(Icons.timer_outlined),
-                                        ]),
-                                  ],
-                                ),
+                            return Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  BackButton(
+                                    onPressed: () {
+                                      context.replace("/");
+                                    },
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(secondsLeft,
+                                            style: GoogleFonts.notoSansMono(
+                                                fontSize: 28)),
+                                        SizedBox(width: 4),
+                                        Icon(Icons.timer_outlined),
+                                      ]),
+                                ],
                               ),
                             );
                           }),
@@ -82,13 +75,6 @@ class Quiz extends StatelessWidget {
                           running: (r) {
                             return Column(
                               children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      context.read<QuizCubit>()
-                                        ..resetTimer()
-                                        ..nextQuestion();
-                                    },
-                                    child: Text("Reset timer")),
                                 r.country != null
                                     ? SvgPicture.asset(
                                         "flags/flags/4x3/${r.country?.code ?? 'ua'}.svg",
@@ -96,11 +82,32 @@ class Quiz extends StatelessWidget {
                                         fit: BoxFit.fill,
                                       )
                                     : SizedBox(width: 200, height: 160),
-                                SizedBox(
-                                  height: 20,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Text(
+                                      "${r.correctAnswers} correct out of ${r.questionNumber} total",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(fontSize: 32)),
                                 ),
                                 Answers(state: r, i: 0, j: 2),
+                                SizedBox(height: 8),
                                 Answers(state: r, i: 2, j: 4),
+                                r.result != Result.running
+                                    ? Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              context.read<QuizCubit>()
+                                                ..resetTimer()
+                                                ..nextQuestion();
+                                            },
+                                            style: actionButtonStyle,
+                                            child: Text("Next Question",
+                                                style:
+                                                    TextStyle(fontSize: 28))),
+                                      )
+                                    : SizedBox.shrink(),
                               ],
                             );
                           }),
@@ -130,43 +137,65 @@ class Answers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width / 2 - 16;
+
+    final buttonStyle = ElevatedButton.styleFrom(
+      minimumSize: Size(w, 100),
+      maximumSize: Size(w, MediaQuery.of(context).size.height),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    );
+
+    final quiz = context.read<QuizCubit>();
+
     return state.maybeMap<Widget>(
         orElse: () => SizedBox.shrink(),
-        running: (r) => Row(
-            // alignment: WrapAlignment.center,
-            // runAlignment: WrapAlignment.center,
-            // spacing: 0,
-            children: r.variants
-                    ?.sublist(i, j)
-                    ?.map((v) => ElevatedButton(
-                        clipBehavior: Clip.antiAlias,
-                        style: (r.timeout && v.code == r.country?.code
-                            ? ButtonStyle(
-                                minimumSize: MaterialStateProperty.all<Size>(
-                                    Size(MediaQuery.of(context).size.width / 2,
-                                        48)),
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero)),
-                                backgroundColor: correctColor)
-                            : ButtonStyle(
-                                minimumSize: MaterialStateProperty.all<Size>(
-                                    Size(MediaQuery.of(context).size.width / 2,
-                                        48)),
-                                shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero)),
-                              )),
-                        onPressed: () {
-                          log(v.code);
-                        },
-                        child: Expanded(
+        running: (r) => SizedBox(
+              width: MediaQuery.of(context).size.width - 20,
+              child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  runAlignment: WrapAlignment.start,
+                  spacing: 0,
+                  children: r.variants?.sublist(i, j).map((v) {
+                        var btnStyle = buttonStyle;
+                        var enabled = true;
+
+                        if (r.guesses != null && r.guesses!.contains(v)) {
+                          enabled = false;
+                        }
+
+                        if (r.result != Result.running &&
+                            v.code == r.country?.code) {
+                          btnStyle = btnStyle.copyWith(
+                              backgroundColor:
+                                  MaterialStatePropertyAll<Color>(green));
+                        } else if (r.guesses != null &&
+                            r.guesses!.contains(v)) {
+                          btnStyle = btnStyle.copyWith(
+                              foregroundColor: MaterialStatePropertyAll<Color>(
+                                  Colors.black54),
+                              backgroundColor: MaterialStatePropertyAll<Color>(
+                                  Colors.black12));
+                        }
+
+                        return ElevatedButton(
+                            style: btnStyle,
+                            onPressed: enabled && r.result == Result.running
+                                ? () {
+                                    if (r.result == Result.running) {
+                                      quiz.guess(v);
+                                    }
+                                  }
+                                : null,
                             child: Text(
-                          v.name,
-                          softWrap: true,
-                          maxLines: 5,
-                        ))))
-                    .toList() ??
-                []));
+                              v.name,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ));
+                      }).toList() ??
+                      []),
+            ));
   }
 }

@@ -9,6 +9,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'quiz_cubit.freezed.dart';
 part 'quiz_state.dart';
 
+const secondsToAnswer = 60;
+
 class QuizCubit extends Cubit<QuizState> {
   QuizCubit({required SettingsCubit settingsCubit})
       : super(QuizState.running(
@@ -33,15 +35,14 @@ class QuizCubit extends Cubit<QuizState> {
     }
 
     final now = DateTime.now();
-    final timeLeft = Duration(seconds: 30);
+    final timeLeft = Duration(seconds: secondsToAnswer);
     final timeLimit = now.add(timeLeft);
 
-    final newState = (state as _Running).copyWith(
-        timeout: false,
-        startedAt: now,
-        timeLimit: timeLimit,
-        timeLeft: timeLeft);
+    final newState = (state as _Running)
+        .copyWith(startedAt: now, timeLimit: timeLimit, timeLeft: timeLeft);
     emit(newState);
+
+    startTimer();
   }
 
   startTimer() {
@@ -65,7 +66,10 @@ class QuizCubit extends Cubit<QuizState> {
 
       if (timeLeft.inSeconds <= 0) {
         timer.cancel();
-        emit(running.copyWith(timeLeft: Duration.zero, timeout: true));
+        emit(running.copyWith(
+          timeLeft: Duration.zero,
+          result: Result.timeout,
+        ));
       } else {
         emit(running.copyWith(timeLeft: timeLeft));
       }
@@ -114,6 +118,47 @@ class QuizCubit extends Cubit<QuizState> {
     var varList = variants.toList();
     varList.shuffle();
 
-    emit(running.copyWith(timeout: false, variants: varList, country: correct));
+    emit(running.copyWith(
+      guesses: null,
+      result: Result.running,
+      variants: varList,
+      country: correct,
+    ));
+  }
+
+  guess(Country g) {
+    if (state is! _Running) {
+      return;
+    }
+
+    final running = state as _Running;
+
+    // correct answer
+    if (running.country == g) {
+      emit(running.copyWith(
+        questionNumber: running.questionNumber + 1,
+        result: Result.valid,
+        correctAnswers: running.correctAnswers + 1,
+      ));
+      running.timer?.cancel();
+      return;
+    }
+
+    // invalid answer
+    var guesses = running.guesses != null
+        ? List<Country>.from(running.guesses!)
+        : <Country>[];
+
+    if (guesses.length >= 1) {
+      emit(running.copyWith(
+        result: Result.invalid,
+        questionNumber: running.questionNumber + 1,
+      ));
+      running.timer?.cancel();
+      return;
+    }
+
+    guesses.add(g);
+    emit(running.copyWith(guesses: guesses));
   }
 }

@@ -28,7 +28,10 @@ mixin _$QuizState {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)
         running,
   }) =>
       throw _privateConstructorUsedError;
@@ -43,7 +46,10 @@ mixin _$QuizState {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)?
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)?
         running,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,7 +64,10 @@ mixin _$QuizState {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)?
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)?
         running,
     required TResult orElse(),
   }) =>
@@ -194,7 +203,10 @@ class _$_Initial implements _Initial {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)
         running,
   }) {
     return initial(settingsCubit);
@@ -212,7 +224,10 @@ class _$_Initial implements _Initial {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)?
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)?
         running,
   }) {
     return initial?.call(settingsCubit);
@@ -230,7 +245,10 @@ class _$_Initial implements _Initial {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)?
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)?
         running,
     required TResult orElse(),
   }) {
@@ -299,7 +317,10 @@ abstract class _$$_RunningCopyWith<$Res> implements $QuizStateCopyWith<$Res> {
       Country? country,
       List<Country>? variants,
       Timer? timer,
-      bool timeout});
+      Result result,
+      List<Country>? guesses,
+      int questionNumber,
+      int correctAnswers});
 
   $CountryCopyWith<$Res>? get country;
 }
@@ -321,7 +342,10 @@ class __$$_RunningCopyWithImpl<$Res>
     Object? country = freezed,
     Object? variants = freezed,
     Object? timer = freezed,
-    Object? timeout = null,
+    Object? result = null,
+    Object? guesses = freezed,
+    Object? questionNumber = null,
+    Object? correctAnswers = null,
   }) {
     return _then(_$_Running(
       settingsCubit: null == settingsCubit
@@ -352,10 +376,22 @@ class __$$_RunningCopyWithImpl<$Res>
           ? _value.timer
           : timer // ignore: cast_nullable_to_non_nullable
               as Timer?,
-      timeout: null == timeout
-          ? _value.timeout
-          : timeout // ignore: cast_nullable_to_non_nullable
-              as bool,
+      result: null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as Result,
+      guesses: freezed == guesses
+          ? _value._guesses
+          : guesses // ignore: cast_nullable_to_non_nullable
+              as List<Country>?,
+      questionNumber: null == questionNumber
+          ? _value.questionNumber
+          : questionNumber // ignore: cast_nullable_to_non_nullable
+              as int,
+      correctAnswers: null == correctAnswers
+          ? _value.correctAnswers
+          : correctAnswers // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 
@@ -383,8 +419,12 @@ class _$_Running implements _Running {
       this.country,
       final List<Country>? variants,
       this.timer,
-      this.timeout = false})
-      : _variants = variants;
+      this.result = Result.running,
+      final List<Country>? guesses,
+      this.questionNumber = 0,
+      this.correctAnswers = 0})
+      : _variants = variants,
+        _guesses = guesses;
 
   @override
   final SettingsCubit settingsCubit;
@@ -410,11 +450,27 @@ class _$_Running implements _Running {
   final Timer? timer;
   @override
   @JsonKey()
-  final bool timeout;
+  final Result result;
+  final List<Country>? _guesses;
+  @override
+  List<Country>? get guesses {
+    final value = _guesses;
+    if (value == null) return null;
+    if (_guesses is EqualUnmodifiableListView) return _guesses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @JsonKey()
+  final int questionNumber;
+  @override
+  @JsonKey()
+  final int correctAnswers;
 
   @override
   String toString() {
-    return 'QuizState.running(settingsCubit: $settingsCubit, timeLimit: $timeLimit, startedAt: $startedAt, timeLeft: $timeLeft, country: $country, variants: $variants, timer: $timer, timeout: $timeout)';
+    return 'QuizState.running(settingsCubit: $settingsCubit, timeLimit: $timeLimit, startedAt: $startedAt, timeLeft: $timeLeft, country: $country, variants: $variants, timer: $timer, result: $result, guesses: $guesses, questionNumber: $questionNumber, correctAnswers: $correctAnswers)';
   }
 
   @override
@@ -433,7 +489,12 @@ class _$_Running implements _Running {
             (identical(other.country, country) || other.country == country) &&
             const DeepCollectionEquality().equals(other._variants, _variants) &&
             (identical(other.timer, timer) || other.timer == timer) &&
-            (identical(other.timeout, timeout) || other.timeout == timeout));
+            (identical(other.result, result) || other.result == result) &&
+            const DeepCollectionEquality().equals(other._guesses, _guesses) &&
+            (identical(other.questionNumber, questionNumber) ||
+                other.questionNumber == questionNumber) &&
+            (identical(other.correctAnswers, correctAnswers) ||
+                other.correctAnswers == correctAnswers));
   }
 
   @override
@@ -446,7 +507,10 @@ class _$_Running implements _Running {
       country,
       const DeepCollectionEquality().hash(_variants),
       timer,
-      timeout);
+      result,
+      const DeepCollectionEquality().hash(_guesses),
+      questionNumber,
+      correctAnswers);
 
   @JsonKey(ignore: true)
   @override
@@ -466,11 +530,14 @@ class _$_Running implements _Running {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)
         running,
   }) {
     return running(settingsCubit, timeLimit, startedAt, timeLeft, country,
-        variants, timer, timeout);
+        variants, timer, result, guesses, questionNumber, correctAnswers);
   }
 
   @override
@@ -485,11 +552,14 @@ class _$_Running implements _Running {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)?
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)?
         running,
   }) {
     return running?.call(settingsCubit, timeLimit, startedAt, timeLeft, country,
-        variants, timer, timeout);
+        variants, timer, result, guesses, questionNumber, correctAnswers);
   }
 
   @override
@@ -504,13 +574,16 @@ class _$_Running implements _Running {
             Country? country,
             List<Country>? variants,
             Timer? timer,
-            bool timeout)?
+            Result result,
+            List<Country>? guesses,
+            int questionNumber,
+            int correctAnswers)?
         running,
     required TResult orElse(),
   }) {
     if (running != null) {
       return running(settingsCubit, timeLimit, startedAt, timeLeft, country,
-          variants, timer, timeout);
+          variants, timer, result, guesses, questionNumber, correctAnswers);
     }
     return orElse();
   }
@@ -556,7 +629,10 @@ abstract class _Running implements QuizState {
       final Country? country,
       final List<Country>? variants,
       final Timer? timer,
-      final bool timeout}) = _$_Running;
+      final Result result,
+      final List<Country>? guesses,
+      final int questionNumber,
+      final int correctAnswers}) = _$_Running;
 
   @override
   SettingsCubit get settingsCubit;
@@ -566,7 +642,10 @@ abstract class _Running implements QuizState {
   Country? get country;
   List<Country>? get variants;
   Timer? get timer;
-  bool get timeout;
+  Result get result;
+  List<Country>? get guesses;
+  int get questionNumber;
+  int get correctAnswers;
   @override
   @JsonKey(ignore: true)
   _$$_RunningCopyWith<_$_Running> get copyWith =>

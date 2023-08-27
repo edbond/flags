@@ -1,3 +1,4 @@
+import 'package:flags/colors.dart';
 import 'package:flags/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,15 +27,17 @@ class MyApp extends StatelessWidget {
       routeInformationProvider: _router.routeInformationProvider,
       routerDelegate: _router.routerDelegate,
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       theme: ThemeData(
         primaryColor: Colors.brown,
-        textTheme: GoogleFonts.rajdhaniTextTheme(),
+        textTheme: GoogleFonts.montserratTextTheme(),
         appBarTheme: AppBarTheme(
-          titleTextStyle: GoogleFonts.rajdhaniTextTheme(textTheme)
+          titleTextStyle: GoogleFonts.montserratTextTheme(textTheme)
               .apply(bodyColor: Colors.white)
               .titleLarge,
         ),
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: Colors.blue, background: sand),
       ),
     );
   }
