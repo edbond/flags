@@ -11,7 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    final theme = Theme.of(context);
+    final scale = getScale(context);
 
     return MultiBlocProvider(
       providers: [
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             backgroundColor: sand,
             body: SafeArea(
-              minimum: const EdgeInsets.all(16.0),
+              minimum: EdgeInsets.all(16.0 * scale),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -37,17 +38,15 @@ class HomePage extends StatelessWidget {
                       "Flags Quiz",
                       style: theme.textTheme.displayMedium?.copyWith(
                         fontWeight: FontWeight.w900,
+                        fontSize: 52 * scale,
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SvgPicture.asset(
-                      "flags/flags/4x3/${currentFlag(settings)}.svg",
-                      height: 160,
-                    ),
-                    SizedBox(
-                      height: 20,
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20 * scale),
+                      child: SvgPicture.asset(
+                        "flags/flags/4x3/${currentFlag(settings)}.svg",
+                        height: 160 * scale,
+                      ),
                     ),
                     // Padding(
                     //   padding: const EdgeInsets.all(8.0),
@@ -79,8 +78,10 @@ class HomePage extends StatelessWidget {
                         context.replace("/quiz");
                       },
                       style: actionButtonStyle,
-                      child:
-                          const Text("START", style: TextStyle(fontSize: 28)),
+                      child: Text(
+                        "START",
+                        style: TextStyle(fontSize: 28 * scale),
+                      ),
                     )
                   ],
                 ),

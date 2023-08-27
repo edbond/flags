@@ -86,6 +86,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     final file = await rootBundle.loadString("flags/country.json");
     return (json.decode(file) as List<dynamic>)
         .map((e) => Country.fromJSON(e))
+        // Central European Free Trade Agreement
+        .where((element) => element.code != "xx" && element.name.length < 26)
         .toList();
   }
 }

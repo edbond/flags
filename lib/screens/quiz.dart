@@ -13,6 +13,8 @@ class Quiz extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scale = getScale(context);
+
     return BlocProvider(
       create: (context) => SettingsCubit(SettingsState.initial())..parse(),
       child: BlocProvider(
@@ -22,100 +24,107 @@ class Quiz extends StatelessWidget {
             ..nextQuestion()
             ..startTimer();
         },
-        child: Scaffold(
-          backgroundColor: sand,
-          body: BlocBuilder<SettingsCubit, SettingsState>(
-            builder: (context, settingsState) {
-              return BlocBuilder<QuizCubit, QuizState>(
-                  builder: (context, state) {
-                return SafeArea(
-                    child: SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      state.maybeMap<Widget>(
-                          orElse: () => SizedBox.shrink(),
-                          running: (r) {
-                            var seconds = r.timeLeft.inSeconds;
-                            var secondsLeft = seconds.toString();
+        child: Semantics(
+          label: "Flags quiz container",
+          container: true,
+          child: Scaffold(
+            backgroundColor: sand,
+            body: BlocBuilder<SettingsCubit, SettingsState>(
+              builder: (context, settingsState) {
+                return BlocBuilder<QuizCubit, QuizState>(
+                    builder: (context, state) {
+                  return SafeArea(
+                      child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        state.maybeMap<Widget>(
+                            orElse: () => SizedBox.shrink(),
+                            running: (r) {
+                              var seconds = r.timeLeft.inSeconds;
+                              var secondsLeft = seconds.toString();
 
-                            if (r.result == Result.timeout) {
-                              secondsLeft = "time out";
-                            }
+                              if (r.result == Result.timeout) {
+                                secondsLeft = "time out";
+                              }
 
-                            return Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  BackButton(
-                                    onPressed: () {
-                                      context.replace("/");
-                                    },
-                                  ),
-                                  Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(secondsLeft,
-                                            style: GoogleFonts.notoSansMono(
-                                                fontSize: 28)),
-                                        SizedBox(width: 4),
-                                        Icon(Icons.timer_outlined),
-                                      ]),
-                                ],
-                              ),
-                            );
-                          }),
-                      state.maybeMap<Widget>(
-                          orElse: () => SizedBox.shrink(),
-                          running: (r) {
-                            return Column(
-                              children: [
-                                r.country != null
-                                    ? SvgPicture.asset(
-                                        "flags/flags/4x3/${r.country?.code ?? 'ua'}.svg",
-                                        height: 160,
-                                        fit: BoxFit.fill,
-                                      )
-                                    : SizedBox(width: 200, height: 160),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0),
-                                  child: Text(
-                                      "${r.correctAnswers} correct out of ${r.questionNumber} total",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 32)),
+                              return Padding(
+                                padding: EdgeInsets.all(16.0 * scale),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    BackButton(
+                                      onPressed: () {
+                                        context.replace("/");
+                                      },
+                                    ),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Text(secondsLeft,
+                                              style: GoogleFonts.notoSansMono(
+                                                  fontSize: 28 * scale)),
+                                          SizedBox(width: 4 * scale),
+                                          Icon(Icons.timer_outlined),
+                                        ]),
+                                  ],
                                 ),
-                                Answers(state: r, i: 0, j: 2),
-                                SizedBox(height: 8),
-                                Answers(state: r, i: 2, j: 4),
-                                r.result != Result.running
-                                    ? Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              context.read<QuizCubit>()
-                                                ..resetTimer()
-                                                ..nextQuestion();
-                                            },
-                                            style: actionButtonStyle,
-                                            child: Text("Next Question",
-                                                style:
-                                                    TextStyle(fontSize: 28))),
-                                      )
-                                    : SizedBox.shrink(),
-                              ],
-                            );
-                          }),
-                    ],
-                  ),
-                ));
-              });
-            },
+                              );
+                            }),
+                        state.maybeMap<Widget>(
+                            orElse: () => SizedBox.shrink(),
+                            running: (r) {
+                              return Column(
+                                children: [
+                                  r.country != null
+                                      ? SvgPicture.asset(
+                                          "flags/flags/4x3/${r.country?.code ?? 'ua'}.svg",
+                                          height: 160 * scale,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : SizedBox(
+                                          width: 200 * scale,
+                                          height: 160 * scale),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 16.0 * scale),
+                                    child: Text(
+                                        "${r.correctAnswers} correct out of ${r.questionNumber} total",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 28 * scale)),
+                                  ),
+                                  Answers(state: r, i: 0, j: 2),
+                                  SizedBox(height: 8 * scale),
+                                  Answers(state: r, i: 2, j: 4),
+                                  r.result != Result.running
+                                      ? Padding(
+                                          padding: EdgeInsets.all(8.0 * scale),
+                                          child: ElevatedButton(
+                                              onPressed: () {
+                                                context.read<QuizCubit>()
+                                                  ..resetTimer()
+                                                  ..nextQuestion();
+                                              },
+                                              style: actionButtonStyle,
+                                              child: Text("Next Question",
+                                                  style: TextStyle(
+                                                      fontSize: 28 * scale))),
+                                        )
+                                      : SizedBox.shrink(),
+                                ],
+                              );
+                            }),
+                      ],
+                    ),
+                  ));
+                });
+              },
+            ),
           ),
         ),
       ),
@@ -137,11 +146,12 @@ class Answers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width / 2 - 16;
+    final scale = getScale(context);
+    final w = MediaQuery.of(context).size.width / 2 - 16 * scale;
 
     final buttonStyle = ElevatedButton.styleFrom(
-      minimumSize: Size(w, 100),
-      maximumSize: Size(w, MediaQuery.of(context).size.height),
+      minimumSize: Size(w, 100 * scale),
+      maximumSize: Size(w, MediaQuery.of(context).size.height * scale),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
 
@@ -150,7 +160,7 @@ class Answers extends StatelessWidget {
     return state.maybeMap<Widget>(
         orElse: () => SizedBox.shrink(),
         running: (r) => SizedBox(
-              width: MediaQuery.of(context).size.width - 20,
+              width: MediaQuery.of(context).size.width - 20 * scale,
               child: Wrap(
                   alignment: WrapAlignment.spaceBetween,
                   runAlignment: WrapAlignment.start,
@@ -190,7 +200,7 @@ class Answers extends StatelessWidget {
                               v.name,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.montserrat(
-                                fontSize: 18,
+                                fontSize: 18 * scale,
                                 fontWeight: FontWeight.w500,
                               ),
                             ));
