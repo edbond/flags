@@ -23,6 +23,7 @@ mixin _$SettingsState {
   Timer? get timer => throw _privateConstructorUsedError;
   int get currentFlagIdx => throw _privateConstructorUsedError;
   Difficulty get difficulty => throw _privateConstructorUsedError;
+  SharedPreferences? get prefs => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -32,7 +33,8 @@ mixin _$SettingsState {
             List<Country> homepageFlags,
             Timer? timer,
             int currentFlagIdx,
-            Difficulty difficulty)
+            Difficulty difficulty,
+            SharedPreferences? prefs)
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -45,7 +47,8 @@ mixin _$SettingsState {
             List<Country> homepageFlags,
             Timer? timer,
             int currentFlagIdx,
-            Difficulty difficulty)?
+            Difficulty difficulty,
+            SharedPreferences? prefs)?
         initial,
   }) =>
       throw _privateConstructorUsedError;
@@ -58,7 +61,8 @@ mixin _$SettingsState {
             List<Country> homepageFlags,
             Timer? timer,
             int currentFlagIdx,
-            Difficulty difficulty)?
+            Difficulty difficulty,
+            SharedPreferences? prefs)?
         initial,
     required TResult orElse(),
   }) =>
@@ -98,7 +102,8 @@ abstract class $SettingsStateCopyWith<$Res> {
       List<Country> homepageFlags,
       Timer? timer,
       int currentFlagIdx,
-      Difficulty difficulty});
+      Difficulty difficulty,
+      SharedPreferences? prefs});
 }
 
 /// @nodoc
@@ -121,6 +126,7 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     Object? timer = freezed,
     Object? currentFlagIdx = null,
     Object? difficulty = null,
+    Object? prefs = freezed,
   }) {
     return _then(_value.copyWith(
       attempts: freezed == attempts
@@ -151,6 +157,10 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.difficulty
           : difficulty // ignore: cast_nullable_to_non_nullable
               as Difficulty,
+      prefs: freezed == prefs
+          ? _value.prefs
+          : prefs // ignore: cast_nullable_to_non_nullable
+              as SharedPreferences?,
     ) as $Val);
   }
 }
@@ -170,7 +180,8 @@ abstract class _$$_InitialCopyWith<$Res>
       List<Country> homepageFlags,
       Timer? timer,
       int currentFlagIdx,
-      Difficulty difficulty});
+      Difficulty difficulty,
+      SharedPreferences? prefs});
 }
 
 /// @nodoc
@@ -190,6 +201,7 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? timer = freezed,
     Object? currentFlagIdx = null,
     Object? difficulty = null,
+    Object? prefs = freezed,
   }) {
     return _then(_$_Initial(
       attempts: freezed == attempts ? _value.attempts! : attempts,
@@ -216,6 +228,10 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value.difficulty
           : difficulty // ignore: cast_nullable_to_non_nullable
               as Difficulty,
+      prefs: freezed == prefs
+          ? _value.prefs
+          : prefs // ignore: cast_nullable_to_non_nullable
+              as SharedPreferences?,
     ));
   }
 }
@@ -230,7 +246,8 @@ class _$_Initial implements _Initial {
       final List<Country> homepageFlags = const [],
       this.timer,
       this.currentFlagIdx = 0,
-      this.difficulty = Difficulty.normal})
+      this.difficulty = Difficulty.normal,
+      this.prefs})
       : _countries = countries,
         _homepageFlags = homepageFlags;
 
@@ -266,10 +283,12 @@ class _$_Initial implements _Initial {
   @override
   @JsonKey()
   final Difficulty difficulty;
+  @override
+  final SharedPreferences? prefs;
 
   @override
   String toString() {
-    return 'SettingsState.initial(attempts: $attempts, timeLimitSeconds: $timeLimitSeconds, countries: $countries, homepageFlags: $homepageFlags, timer: $timer, currentFlagIdx: $currentFlagIdx, difficulty: $difficulty)';
+    return 'SettingsState.initial(attempts: $attempts, timeLimitSeconds: $timeLimitSeconds, countries: $countries, homepageFlags: $homepageFlags, timer: $timer, currentFlagIdx: $currentFlagIdx, difficulty: $difficulty, prefs: $prefs)';
   }
 
   @override
@@ -288,7 +307,8 @@ class _$_Initial implements _Initial {
             (identical(other.currentFlagIdx, currentFlagIdx) ||
                 other.currentFlagIdx == currentFlagIdx) &&
             (identical(other.difficulty, difficulty) ||
-                other.difficulty == difficulty));
+                other.difficulty == difficulty) &&
+            (identical(other.prefs, prefs) || other.prefs == prefs));
   }
 
   @override
@@ -300,7 +320,8 @@ class _$_Initial implements _Initial {
       const DeepCollectionEquality().hash(_homepageFlags),
       timer,
       currentFlagIdx,
-      difficulty);
+      difficulty,
+      prefs);
 
   @JsonKey(ignore: true)
   @override
@@ -318,11 +339,12 @@ class _$_Initial implements _Initial {
             List<Country> homepageFlags,
             Timer? timer,
             int currentFlagIdx,
-            Difficulty difficulty)
+            Difficulty difficulty,
+            SharedPreferences? prefs)
         initial,
   }) {
     return initial(attempts, timeLimitSeconds, countries, homepageFlags, timer,
-        currentFlagIdx, difficulty);
+        currentFlagIdx, difficulty, prefs);
   }
 
   @override
@@ -335,11 +357,12 @@ class _$_Initial implements _Initial {
             List<Country> homepageFlags,
             Timer? timer,
             int currentFlagIdx,
-            Difficulty difficulty)?
+            Difficulty difficulty,
+            SharedPreferences? prefs)?
         initial,
   }) {
     return initial?.call(attempts, timeLimitSeconds, countries, homepageFlags,
-        timer, currentFlagIdx, difficulty);
+        timer, currentFlagIdx, difficulty, prefs);
   }
 
   @override
@@ -352,13 +375,14 @@ class _$_Initial implements _Initial {
             List<Country> homepageFlags,
             Timer? timer,
             int currentFlagIdx,
-            Difficulty difficulty)?
+            Difficulty difficulty,
+            SharedPreferences? prefs)?
         initial,
     required TResult orElse(),
   }) {
     if (initial != null) {
       return initial(attempts, timeLimitSeconds, countries, homepageFlags,
-          timer, currentFlagIdx, difficulty);
+          timer, currentFlagIdx, difficulty, prefs);
     }
     return orElse();
   }
@@ -400,7 +424,8 @@ abstract class _Initial implements SettingsState {
       final List<Country> homepageFlags,
       final Timer? timer,
       final int currentFlagIdx,
-      final Difficulty difficulty}) = _$_Initial;
+      final Difficulty difficulty,
+      final SharedPreferences? prefs}) = _$_Initial;
 
   @override
   dynamic get attempts;
@@ -416,6 +441,8 @@ abstract class _Initial implements SettingsState {
   int get currentFlagIdx;
   @override
   Difficulty get difficulty;
+  @override
+  SharedPreferences? get prefs;
   @override
   @JsonKey(ignore: true)
   _$$_InitialCopyWith<_$_Initial> get copyWith =>

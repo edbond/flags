@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flags/model/country.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_cubit.freezed.dart';
 part 'settings_state.dart';

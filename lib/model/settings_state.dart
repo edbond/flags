@@ -12,5 +12,6 @@ class SettingsState with _$SettingsState {
     Timer? timer,
     @Default(0) int currentFlagIdx,
     @Default(Difficulty.normal) Difficulty difficulty,
+    SharedPreferences? prefs,
   }) = _Initial;
 }
