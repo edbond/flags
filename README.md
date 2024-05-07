@@ -2,6 +2,16 @@
 
 "Flags Quiz App"
 
+Written in Flutter - mobile (iOS / Android) and web version
+
+Links:
+
+WEB - https://flags-five.vercel.app/
+
+ANDROID - https://play.google.com/store/apps/details?id=com.edbond.flags
+
+IOS - in progress - https://buymeacoffee.com/edbond
+
 <img width="45%" src="https://github.com/edbond/flags/blob/master/Screenshot_20230826_224151.png" />
 
 <img width="45%" src="https://github.com/edbond/flags/blob/master/Screenshot_20230826_224232.png" />
