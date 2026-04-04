@@ -7,9 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'screens/quiz.dart';
 
 void main() {
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
   runApp(MyApp());
 }
 
