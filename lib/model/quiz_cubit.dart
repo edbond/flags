@@ -17,9 +17,9 @@ class QuizCubit extends Cubit<QuizState> {
   QuizCubit({required SettingsCubit settingsCubit})
       : super(QuizState.running(
           settingsCubit: settingsCubit,
-          timeLimit: DateTime.now().add(const Duration(seconds: 30)),
+          timeLimit: DateTime.now().add(const Duration(seconds: secondsToAnswer)),
           startedAt: DateTime.now(),
-          timeLeft: const Duration(seconds: 30),
+          timeLeft: const Duration(seconds: secondsToAnswer),
         ));
 
   @override
