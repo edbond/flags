@@ -14,7 +14,6 @@ class QuizState with _$QuizState {
     required Duration timeLeft,
     Country? country,
     List<Country>? variants,
-    Timer? timer,
     @Default(Result.running) Result result,
     List<Country>? guesses,
     @Default(0) int questionNumber,

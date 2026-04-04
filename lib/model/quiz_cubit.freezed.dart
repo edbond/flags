@@ -12,7 +12,7 @@ part of 'quiz_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$QuizState {
@@ -27,7 +27,6 @@ mixin _$QuizState {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -45,7 +44,6 @@ mixin _$QuizState {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -63,7 +61,6 @@ mixin _$QuizState {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -92,7 +89,9 @@ mixin _$QuizState {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $QuizStateCopyWith<QuizState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -115,6 +114,8 @@ class _$QuizStateCopyWithImpl<$Res, $Val extends QuizState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -130,28 +131,32 @@ class _$QuizStateCopyWithImpl<$Res, $Val extends QuizState>
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res> implements $QuizStateCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+abstract class _$$InitialImplCopyWith<$Res>
+    implements $QuizStateCopyWith<$Res> {
+  factory _$$InitialImplCopyWith(
+          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
+      __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({SettingsCubit settingsCubit});
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$QuizStateCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$InitialImplCopyWithImpl<$Res>
+    extends _$QuizStateCopyWithImpl<$Res, _$InitialImpl>
+    implements _$$InitialImplCopyWith<$Res> {
+  __$$InitialImplCopyWithImpl(
+      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? settingsCubit = null,
   }) {
-    return _then(_$_Initial(
+    return _then(_$InitialImpl(
       settingsCubit: null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -162,8 +167,8 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial({required this.settingsCubit});
+class _$InitialImpl implements _Initial {
+  const _$InitialImpl({required this.settingsCubit});
 
   @override
   final SettingsCubit settingsCubit;
@@ -174,10 +179,10 @@ class _$_Initial implements _Initial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Initial &&
+            other is _$InitialImpl &&
             (identical(other.settingsCubit, settingsCubit) ||
                 other.settingsCubit == settingsCubit));
   }
@@ -185,11 +190,13 @@ class _$_Initial implements _Initial {
   @override
   int get hashCode => Object.hash(runtimeType, settingsCubit);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
+      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -202,7 +209,6 @@ class _$_Initial implements _Initial {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -223,7 +229,6 @@ class _$_Initial implements _Initial {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -244,7 +249,6 @@ class _$_Initial implements _Initial {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -292,21 +296,25 @@ class _$_Initial implements _Initial {
 
 abstract class _Initial implements QuizState {
   const factory _Initial({required final SettingsCubit settingsCubit}) =
-      _$_Initial;
+      _$InitialImpl;
 
   @override
   SettingsCubit get settingsCubit;
+
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_RunningCopyWith<$Res> implements $QuizStateCopyWith<$Res> {
-  factory _$$_RunningCopyWith(
-          _$_Running value, $Res Function(_$_Running) then) =
-      __$$_RunningCopyWithImpl<$Res>;
+abstract class _$$RunningImplCopyWith<$Res>
+    implements $QuizStateCopyWith<$Res> {
+  factory _$$RunningImplCopyWith(
+          _$RunningImpl value, $Res Function(_$RunningImpl) then) =
+      __$$RunningImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -316,7 +324,6 @@ abstract class _$$_RunningCopyWith<$Res> implements $QuizStateCopyWith<$Res> {
       Duration timeLeft,
       Country? country,
       List<Country>? variants,
-      Timer? timer,
       Result result,
       List<Country>? guesses,
       int questionNumber,
@@ -326,12 +333,15 @@ abstract class _$$_RunningCopyWith<$Res> implements $QuizStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_RunningCopyWithImpl<$Res>
-    extends _$QuizStateCopyWithImpl<$Res, _$_Running>
-    implements _$$_RunningCopyWith<$Res> {
-  __$$_RunningCopyWithImpl(_$_Running _value, $Res Function(_$_Running) _then)
+class __$$RunningImplCopyWithImpl<$Res>
+    extends _$QuizStateCopyWithImpl<$Res, _$RunningImpl>
+    implements _$$RunningImplCopyWith<$Res> {
+  __$$RunningImplCopyWithImpl(
+      _$RunningImpl _value, $Res Function(_$RunningImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -341,13 +351,12 @@ class __$$_RunningCopyWithImpl<$Res>
     Object? timeLeft = null,
     Object? country = freezed,
     Object? variants = freezed,
-    Object? timer = freezed,
     Object? result = null,
     Object? guesses = freezed,
     Object? questionNumber = null,
     Object? correctAnswers = null,
   }) {
-    return _then(_$_Running(
+    return _then(_$RunningImpl(
       settingsCubit: null == settingsCubit
           ? _value.settingsCubit
           : settingsCubit // ignore: cast_nullable_to_non_nullable
@@ -372,10 +381,6 @@ class __$$_RunningCopyWithImpl<$Res>
           ? _value._variants
           : variants // ignore: cast_nullable_to_non_nullable
               as List<Country>?,
-      timer: freezed == timer
-          ? _value.timer
-          : timer // ignore: cast_nullable_to_non_nullable
-              as Timer?,
       result: null == result
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
@@ -395,6 +400,8 @@ class __$$_RunningCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $CountryCopyWith<$Res>? get country {
@@ -410,15 +417,14 @@ class __$$_RunningCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Running implements _Running {
-  const _$_Running(
+class _$RunningImpl implements _Running {
+  const _$RunningImpl(
       {required this.settingsCubit,
       required this.timeLimit,
       required this.startedAt,
       required this.timeLeft,
       this.country,
       final List<Country>? variants,
-      this.timer,
       this.result = Result.running,
       final List<Country>? guesses,
       this.questionNumber = 0,
@@ -447,8 +453,6 @@ class _$_Running implements _Running {
   }
 
   @override
-  final Timer? timer;
-  @override
   @JsonKey()
   final Result result;
   final List<Country>? _guesses;
@@ -470,14 +474,14 @@ class _$_Running implements _Running {
 
   @override
   String toString() {
-    return 'QuizState.running(settingsCubit: $settingsCubit, timeLimit: $timeLimit, startedAt: $startedAt, timeLeft: $timeLeft, country: $country, variants: $variants, timer: $timer, result: $result, guesses: $guesses, questionNumber: $questionNumber, correctAnswers: $correctAnswers)';
+    return 'QuizState.running(settingsCubit: $settingsCubit, timeLimit: $timeLimit, startedAt: $startedAt, timeLeft: $timeLeft, country: $country, variants: $variants, result: $result, guesses: $guesses, questionNumber: $questionNumber, correctAnswers: $correctAnswers)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Running &&
+            other is _$RunningImpl &&
             (identical(other.settingsCubit, settingsCubit) ||
                 other.settingsCubit == settingsCubit) &&
             (identical(other.timeLimit, timeLimit) ||
@@ -488,7 +492,6 @@ class _$_Running implements _Running {
                 other.timeLeft == timeLeft) &&
             (identical(other.country, country) || other.country == country) &&
             const DeepCollectionEquality().equals(other._variants, _variants) &&
-            (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.result, result) || other.result == result) &&
             const DeepCollectionEquality().equals(other._guesses, _guesses) &&
             (identical(other.questionNumber, questionNumber) ||
@@ -506,17 +509,18 @@ class _$_Running implements _Running {
       timeLeft,
       country,
       const DeepCollectionEquality().hash(_variants),
-      timer,
       result,
       const DeepCollectionEquality().hash(_guesses),
       questionNumber,
       correctAnswers);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RunningCopyWith<_$_Running> get copyWith =>
-      __$$_RunningCopyWithImpl<_$_Running>(this, _$identity);
+  _$$RunningImplCopyWith<_$RunningImpl> get copyWith =>
+      __$$RunningImplCopyWithImpl<_$RunningImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -529,7 +533,6 @@ class _$_Running implements _Running {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -537,7 +540,7 @@ class _$_Running implements _Running {
         running,
   }) {
     return running(settingsCubit, timeLimit, startedAt, timeLeft, country,
-        variants, timer, result, guesses, questionNumber, correctAnswers);
+        variants, result, guesses, questionNumber, correctAnswers);
   }
 
   @override
@@ -551,7 +554,6 @@ class _$_Running implements _Running {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -559,7 +561,7 @@ class _$_Running implements _Running {
         running,
   }) {
     return running?.call(settingsCubit, timeLimit, startedAt, timeLeft, country,
-        variants, timer, result, guesses, questionNumber, correctAnswers);
+        variants, result, guesses, questionNumber, correctAnswers);
   }
 
   @override
@@ -573,7 +575,6 @@ class _$_Running implements _Running {
             Duration timeLeft,
             Country? country,
             List<Country>? variants,
-            Timer? timer,
             Result result,
             List<Country>? guesses,
             int questionNumber,
@@ -583,7 +584,7 @@ class _$_Running implements _Running {
   }) {
     if (running != null) {
       return running(settingsCubit, timeLimit, startedAt, timeLeft, country,
-          variants, timer, result, guesses, questionNumber, correctAnswers);
+          variants, result, guesses, questionNumber, correctAnswers);
     }
     return orElse();
   }
@@ -628,11 +629,10 @@ abstract class _Running implements QuizState {
       required final Duration timeLeft,
       final Country? country,
       final List<Country>? variants,
-      final Timer? timer,
       final Result result,
       final List<Country>? guesses,
       final int questionNumber,
-      final int correctAnswers}) = _$_Running;
+      final int correctAnswers}) = _$RunningImpl;
 
   @override
   SettingsCubit get settingsCubit;
@@ -641,13 +641,15 @@ abstract class _Running implements QuizState {
   Duration get timeLeft;
   Country? get country;
   List<Country>? get variants;
-  Timer? get timer;
   Result get result;
   List<Country>? get guesses;
   int get questionNumber;
   int get correctAnswers;
+
+  /// Create a copy of QuizState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_RunningCopyWith<_$_Running> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RunningImplCopyWith<_$RunningImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
