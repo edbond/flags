@@ -11,11 +11,13 @@ part 'settings_cubit.freezed.dart';
 part 'settings_state.dart';
 
 class SettingsCubit extends Cubit<SettingsState> {
+  Timer? _carouselTimer;
+
   SettingsCubit(super.initialState);
 
   @override
   Future<void> close() {
-    state.timer?.cancel();
+    _carouselTimer?.cancel();
     return super.close();
   }
 
@@ -61,9 +63,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   startTimer() {
-    state.timer?.cancel();
+    _carouselTimer?.cancel();
 
-    var timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _carouselTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
       if (isClosed) {
         timer.cancel();
         return;
@@ -79,8 +81,6 @@ class SettingsCubit extends Cubit<SettingsState> {
       }
       emit(state.copyWith(currentFlagIdx: idx));
     });
-
-    emit(state.copyWith(timer: timer));
   }
 
   Future<List<Country>> _readCountries() async {

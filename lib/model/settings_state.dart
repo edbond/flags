@@ -9,7 +9,6 @@ class SettingsState with _$SettingsState {
     @Default(30) timeLimitSeconds,
     @Default([]) List<Country> countries,
     @Default([]) List<Country> homepageFlags,
-    Timer? timer,
     @Default(0) int currentFlagIdx,
     @Default(Difficulty.normal) Difficulty difficulty,
     SharedPreferences? prefs,

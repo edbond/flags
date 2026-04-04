@@ -12,7 +12,7 @@ part of 'settings_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$SettingsState {
@@ -20,7 +20,6 @@ mixin _$SettingsState {
   dynamic get timeLimitSeconds => throw _privateConstructorUsedError;
   List<Country> get countries => throw _privateConstructorUsedError;
   List<Country> get homepageFlags => throw _privateConstructorUsedError;
-  Timer? get timer => throw _privateConstructorUsedError;
   int get currentFlagIdx => throw _privateConstructorUsedError;
   Difficulty get difficulty => throw _privateConstructorUsedError;
   SharedPreferences? get prefs => throw _privateConstructorUsedError;
@@ -31,7 +30,6 @@ mixin _$SettingsState {
             dynamic timeLimitSeconds,
             List<Country> countries,
             List<Country> homepageFlags,
-            Timer? timer,
             int currentFlagIdx,
             Difficulty difficulty,
             SharedPreferences? prefs)
@@ -45,7 +43,6 @@ mixin _$SettingsState {
             dynamic timeLimitSeconds,
             List<Country> countries,
             List<Country> homepageFlags,
-            Timer? timer,
             int currentFlagIdx,
             Difficulty difficulty,
             SharedPreferences? prefs)?
@@ -59,7 +56,6 @@ mixin _$SettingsState {
             dynamic timeLimitSeconds,
             List<Country> countries,
             List<Country> homepageFlags,
-            Timer? timer,
             int currentFlagIdx,
             Difficulty difficulty,
             SharedPreferences? prefs)?
@@ -84,7 +80,9 @@ mixin _$SettingsState {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -100,7 +98,6 @@ abstract class $SettingsStateCopyWith<$Res> {
       dynamic timeLimitSeconds,
       List<Country> countries,
       List<Country> homepageFlags,
-      Timer? timer,
       int currentFlagIdx,
       Difficulty difficulty,
       SharedPreferences? prefs});
@@ -116,6 +113,8 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -123,7 +122,6 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
     Object? timeLimitSeconds = freezed,
     Object? countries = null,
     Object? homepageFlags = null,
-    Object? timer = freezed,
     Object? currentFlagIdx = null,
     Object? difficulty = null,
     Object? prefs = freezed,
@@ -145,10 +143,6 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.homepageFlags
           : homepageFlags // ignore: cast_nullable_to_non_nullable
               as List<Country>,
-      timer: freezed == timer
-          ? _value.timer
-          : timer // ignore: cast_nullable_to_non_nullable
-              as Timer?,
       currentFlagIdx: null == currentFlagIdx
           ? _value.currentFlagIdx
           : currentFlagIdx // ignore: cast_nullable_to_non_nullable
@@ -166,11 +160,11 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
 }
 
 /// @nodoc
-abstract class _$$_InitialCopyWith<$Res>
+abstract class _$$InitialImplCopyWith<$Res>
     implements $SettingsStateCopyWith<$Res> {
-  factory _$$_InitialCopyWith(
-          _$_Initial value, $Res Function(_$_Initial) then) =
-      __$$_InitialCopyWithImpl<$Res>;
+  factory _$$InitialImplCopyWith(
+          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
+      __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -178,19 +172,21 @@ abstract class _$$_InitialCopyWith<$Res>
       dynamic timeLimitSeconds,
       List<Country> countries,
       List<Country> homepageFlags,
-      Timer? timer,
       int currentFlagIdx,
       Difficulty difficulty,
       SharedPreferences? prefs});
 }
 
 /// @nodoc
-class __$$_InitialCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res, _$_Initial>
-    implements _$$_InitialCopyWith<$Res> {
-  __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
+class __$$InitialImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$InitialImpl>
+    implements _$$InitialImplCopyWith<$Res> {
+  __$$InitialImplCopyWithImpl(
+      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -198,12 +194,11 @@ class __$$_InitialCopyWithImpl<$Res>
     Object? timeLimitSeconds = freezed,
     Object? countries = null,
     Object? homepageFlags = null,
-    Object? timer = freezed,
     Object? currentFlagIdx = null,
     Object? difficulty = null,
     Object? prefs = freezed,
   }) {
-    return _then(_$_Initial(
+    return _then(_$InitialImpl(
       attempts: freezed == attempts ? _value.attempts! : attempts,
       timeLimitSeconds: freezed == timeLimitSeconds
           ? _value.timeLimitSeconds!
@@ -216,10 +211,6 @@ class __$$_InitialCopyWithImpl<$Res>
           ? _value._homepageFlags
           : homepageFlags // ignore: cast_nullable_to_non_nullable
               as List<Country>,
-      timer: freezed == timer
-          ? _value.timer
-          : timer // ignore: cast_nullable_to_non_nullable
-              as Timer?,
       currentFlagIdx: null == currentFlagIdx
           ? _value.currentFlagIdx
           : currentFlagIdx // ignore: cast_nullable_to_non_nullable
@@ -238,13 +229,12 @@ class __$$_InitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial(
+class _$InitialImpl implements _Initial {
+  const _$InitialImpl(
       {this.attempts = 2,
       this.timeLimitSeconds = 30,
       final List<Country> countries = const [],
       final List<Country> homepageFlags = const [],
-      this.timer,
       this.currentFlagIdx = 0,
       this.difficulty = Difficulty.normal,
       this.prefs})
@@ -276,8 +266,6 @@ class _$_Initial implements _Initial {
   }
 
   @override
-  final Timer? timer;
-  @override
   @JsonKey()
   final int currentFlagIdx;
   @override
@@ -288,14 +276,14 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'SettingsState.initial(attempts: $attempts, timeLimitSeconds: $timeLimitSeconds, countries: $countries, homepageFlags: $homepageFlags, timer: $timer, currentFlagIdx: $currentFlagIdx, difficulty: $difficulty, prefs: $prefs)';
+    return 'SettingsState.initial(attempts: $attempts, timeLimitSeconds: $timeLimitSeconds, countries: $countries, homepageFlags: $homepageFlags, currentFlagIdx: $currentFlagIdx, difficulty: $difficulty, prefs: $prefs)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Initial &&
+            other is _$InitialImpl &&
             const DeepCollectionEquality().equals(other.attempts, attempts) &&
             const DeepCollectionEquality()
                 .equals(other.timeLimitSeconds, timeLimitSeconds) &&
@@ -303,7 +291,6 @@ class _$_Initial implements _Initial {
                 .equals(other._countries, _countries) &&
             const DeepCollectionEquality()
                 .equals(other._homepageFlags, _homepageFlags) &&
-            (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.currentFlagIdx, currentFlagIdx) ||
                 other.currentFlagIdx == currentFlagIdx) &&
             (identical(other.difficulty, difficulty) ||
@@ -318,16 +305,17 @@ class _$_Initial implements _Initial {
       const DeepCollectionEquality().hash(timeLimitSeconds),
       const DeepCollectionEquality().hash(_countries),
       const DeepCollectionEquality().hash(_homepageFlags),
-      timer,
       currentFlagIdx,
       difficulty,
       prefs);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
-      __$$_InitialCopyWithImpl<_$_Initial>(this, _$identity);
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
+      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -337,13 +325,12 @@ class _$_Initial implements _Initial {
             dynamic timeLimitSeconds,
             List<Country> countries,
             List<Country> homepageFlags,
-            Timer? timer,
             int currentFlagIdx,
             Difficulty difficulty,
             SharedPreferences? prefs)
         initial,
   }) {
-    return initial(attempts, timeLimitSeconds, countries, homepageFlags, timer,
+    return initial(attempts, timeLimitSeconds, countries, homepageFlags,
         currentFlagIdx, difficulty, prefs);
   }
 
@@ -355,14 +342,13 @@ class _$_Initial implements _Initial {
             dynamic timeLimitSeconds,
             List<Country> countries,
             List<Country> homepageFlags,
-            Timer? timer,
             int currentFlagIdx,
             Difficulty difficulty,
             SharedPreferences? prefs)?
         initial,
   }) {
     return initial?.call(attempts, timeLimitSeconds, countries, homepageFlags,
-        timer, currentFlagIdx, difficulty, prefs);
+        currentFlagIdx, difficulty, prefs);
   }
 
   @override
@@ -373,7 +359,6 @@ class _$_Initial implements _Initial {
             dynamic timeLimitSeconds,
             List<Country> countries,
             List<Country> homepageFlags,
-            Timer? timer,
             int currentFlagIdx,
             Difficulty difficulty,
             SharedPreferences? prefs)?
@@ -382,7 +367,7 @@ class _$_Initial implements _Initial {
   }) {
     if (initial != null) {
       return initial(attempts, timeLimitSeconds, countries, homepageFlags,
-          timer, currentFlagIdx, difficulty, prefs);
+          currentFlagIdx, difficulty, prefs);
     }
     return orElse();
   }
@@ -422,10 +407,9 @@ abstract class _Initial implements SettingsState {
       final dynamic timeLimitSeconds,
       final List<Country> countries,
       final List<Country> homepageFlags,
-      final Timer? timer,
       final int currentFlagIdx,
       final Difficulty difficulty,
-      final SharedPreferences? prefs}) = _$_Initial;
+      final SharedPreferences? prefs}) = _$InitialImpl;
 
   @override
   dynamic get attempts;
@@ -436,15 +420,16 @@ abstract class _Initial implements SettingsState {
   @override
   List<Country> get homepageFlags;
   @override
-  Timer? get timer;
-  @override
   int get currentFlagIdx;
   @override
   Difficulty get difficulty;
   @override
   SharedPreferences? get prefs;
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_InitialCopyWith<_$_Initial> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
