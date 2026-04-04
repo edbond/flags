@@ -12,7 +12,7 @@ part of 'answer.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Answer {
@@ -20,7 +20,9 @@ mixin _$Answer {
   DateTime get start => throw _privateConstructorUsedError;
   DateTime get finish => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Answer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AnswerCopyWith<Answer> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -42,6 +44,8 @@ class _$AnswerCopyWithImpl<$Res, $Val extends Answer>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Answer
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -67,21 +71,25 @@ class _$AnswerCopyWithImpl<$Res, $Val extends Answer>
 }
 
 /// @nodoc
-abstract class _$$_AnswerCopyWith<$Res> implements $AnswerCopyWith<$Res> {
-  factory _$$_AnswerCopyWith(_$_Answer value, $Res Function(_$_Answer) then) =
-      __$$_AnswerCopyWithImpl<$Res>;
+abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
+  factory _$$AnswerImplCopyWith(
+          _$AnswerImpl value, $Res Function(_$AnswerImpl) then) =
+      __$$AnswerImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String countryName, DateTime start, DateTime finish});
 }
 
 /// @nodoc
-class __$$_AnswerCopyWithImpl<$Res>
-    extends _$AnswerCopyWithImpl<$Res, _$_Answer>
-    implements _$$_AnswerCopyWith<$Res> {
-  __$$_AnswerCopyWithImpl(_$_Answer _value, $Res Function(_$_Answer) _then)
+class __$$AnswerImplCopyWithImpl<$Res>
+    extends _$AnswerCopyWithImpl<$Res, _$AnswerImpl>
+    implements _$$AnswerImplCopyWith<$Res> {
+  __$$AnswerImplCopyWithImpl(
+      _$AnswerImpl _value, $Res Function(_$AnswerImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Answer
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -89,7 +97,7 @@ class __$$_AnswerCopyWithImpl<$Res>
     Object? start = null,
     Object? finish = null,
   }) {
-    return _then(_$_Answer(
+    return _then(_$AnswerImpl(
       countryName: null == countryName
           ? _value.countryName
           : countryName // ignore: cast_nullable_to_non_nullable
@@ -108,8 +116,8 @@ class __$$_AnswerCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Answer implements _Answer {
-  const _$_Answer(
+class _$AnswerImpl implements _Answer {
+  const _$AnswerImpl(
       {required this.countryName, required this.start, required this.finish});
 
   @override
@@ -125,10 +133,10 @@ class _$_Answer implements _Answer {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Answer &&
+            other is _$AnswerImpl &&
             (identical(other.countryName, countryName) ||
                 other.countryName == countryName) &&
             (identical(other.start, start) || other.start == start) &&
@@ -138,18 +146,20 @@ class _$_Answer implements _Answer {
   @override
   int get hashCode => Object.hash(runtimeType, countryName, start, finish);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Answer
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AnswerCopyWith<_$_Answer> get copyWith =>
-      __$$_AnswerCopyWithImpl<_$_Answer>(this, _$identity);
+  _$$AnswerImplCopyWith<_$AnswerImpl> get copyWith =>
+      __$$AnswerImplCopyWithImpl<_$AnswerImpl>(this, _$identity);
 }
 
 abstract class _Answer implements Answer {
   const factory _Answer(
       {required final String countryName,
       required final DateTime start,
-      required final DateTime finish}) = _$_Answer;
+      required final DateTime finish}) = _$AnswerImpl;
 
   @override
   String get countryName;
@@ -157,8 +167,11 @@ abstract class _Answer implements Answer {
   DateTime get start;
   @override
   DateTime get finish;
+
+  /// Create a copy of Answer
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_AnswerCopyWith<_$_Answer> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AnswerImplCopyWith<_$AnswerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

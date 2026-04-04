@@ -16,21 +16,12 @@ Country _$CountryFromJson(Map<String, dynamic> json) => Country(
       iso: json['iso'] as bool,
     );
 
-Map<String, dynamic> _$CountryToJson(Country instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('capital', instance.capital);
-  val['code'] = instance.code;
-  writeNotNull('continent', instance.continent);
-  val['flag_1x1'] = instance.flag1x1;
-  val['flag_4x3'] = instance.flag4x3;
-  val['name'] = instance.name;
-  val['iso'] = instance.iso;
-  return val;
-}
+Map<String, dynamic> _$CountryToJson(Country instance) => <String, dynamic>{
+      if (instance.capital case final value?) 'capital': value,
+      'code': instance.code,
+      if (instance.continent case final value?) 'continent': value,
+      'flag_1x1': instance.flag1x1,
+      'flag_4x3': instance.flag4x3,
+      'name': instance.name,
+      'iso': instance.iso,
+    };

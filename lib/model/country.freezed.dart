@@ -12,7 +12,7 @@ part of 'country.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Country {
@@ -28,7 +28,9 @@ mixin _$Country {
   String get name => throw _privateConstructorUsedError;
   bool get iso => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Country
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CountryCopyWith<Country> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -57,6 +59,8 @@ class _$CountryCopyWithImpl<$Res, $Val extends Country>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Country
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -102,10 +106,10 @@ class _$CountryCopyWithImpl<$Res, $Val extends Country>
 }
 
 /// @nodoc
-abstract class _$$_CountryCopyWith<$Res> implements $CountryCopyWith<$Res> {
-  factory _$$_CountryCopyWith(
-          _$_Country value, $Res Function(_$_Country) then) =
-      __$$_CountryCopyWithImpl<$Res>;
+abstract class _$$CountryImplCopyWith<$Res> implements $CountryCopyWith<$Res> {
+  factory _$$CountryImplCopyWith(
+          _$CountryImpl value, $Res Function(_$CountryImpl) then) =
+      __$$CountryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -119,12 +123,15 @@ abstract class _$$_CountryCopyWith<$Res> implements $CountryCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_CountryCopyWithImpl<$Res>
-    extends _$CountryCopyWithImpl<$Res, _$_Country>
-    implements _$$_CountryCopyWith<$Res> {
-  __$$_CountryCopyWithImpl(_$_Country _value, $Res Function(_$_Country) _then)
+class __$$CountryImplCopyWithImpl<$Res>
+    extends _$CountryCopyWithImpl<$Res, _$CountryImpl>
+    implements _$$CountryImplCopyWith<$Res> {
+  __$$CountryImplCopyWithImpl(
+      _$CountryImpl _value, $Res Function(_$CountryImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Country
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -136,7 +143,7 @@ class __$$_CountryCopyWithImpl<$Res>
     Object? name = null,
     Object? iso = null,
   }) {
-    return _then(_$_Country(
+    return _then(_$CountryImpl(
       capital: freezed == capital
           ? _value.capital
           : capital // ignore: cast_nullable_to_non_nullable
@@ -171,8 +178,8 @@ class __$$_CountryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Country implements _Country {
-  _$_Country(
+class _$CountryImpl implements _Country {
+  _$CountryImpl(
       {@JsonKey(includeIfNull: false, required: false) this.capital,
       required this.code,
       @JsonKey(includeIfNull: false, required: false) this.continent,
@@ -206,10 +213,10 @@ class _$_Country implements _Country {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Country &&
+            other is _$CountryImpl &&
             (identical(other.capital, capital) || other.capital == capital) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.continent, continent) ||
@@ -224,11 +231,13 @@ class _$_Country implements _Country {
   int get hashCode => Object.hash(
       runtimeType, capital, code, continent, flag1x1, flag4x3, name, iso);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Country
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CountryCopyWith<_$_Country> get copyWith =>
-      __$$_CountryCopyWithImpl<_$_Country>(this, _$identity);
+  _$$CountryImplCopyWith<_$CountryImpl> get copyWith =>
+      __$$CountryImplCopyWithImpl<_$CountryImpl>(this, _$identity);
 }
 
 abstract class _Country implements Country {
@@ -239,7 +248,7 @@ abstract class _Country implements Country {
       @JsonKey(name: "flag_1x1") required final String flag1x1,
       @JsonKey(name: "flag_4x3") required final String flag4x3,
       required final String name,
-      required final bool iso}) = _$_Country;
+      required final bool iso}) = _$CountryImpl;
 
   @override
   @JsonKey(includeIfNull: false, required: false)
@@ -259,8 +268,11 @@ abstract class _Country implements Country {
   String get name;
   @override
   bool get iso;
+
+  /// Create a copy of Country
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
-  _$$_CountryCopyWith<_$_Country> get copyWith =>
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CountryImplCopyWith<_$CountryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
